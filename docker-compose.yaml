@@ -19,3 +19,7 @@ services:
       - .:/app
       - /dev/log:/dev/log
       - static_volume:/app/staticfiles
+
+volumes:
+  db-data:
+  static_volume:
