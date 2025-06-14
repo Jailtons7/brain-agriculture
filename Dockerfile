@@ -12,10 +12,10 @@ POETRY_CACHE_DIR=/tmp/poetry_cache
 RUN --mount=type=cache,target=/tmp/poetry_cache poetry install --only main --no-root
 
 FROM python:3.13 as runner
-WORKDIR /app
+WORKDIR /app/src
 COPY src /app/src/
 
 COPY --from=builder /app/.venv /app/.venv
 ENV PATH="/app/.env/bin:$PATH"
 
-ENTRYPOINT ["python manage.py runserver 0.0.0.0:8000"]
+ENTRYPOINT ["python", "manage.py", "runserver", "0.0.0.0:8000"]
