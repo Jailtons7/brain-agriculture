@@ -9,13 +9,11 @@ POETRY_VIRTUALENVS_IN_PROJECT=1 \
 POETRY_VIRTUALENVS_CREATE=true \
 POETRY_CACHE_DIR=/tmp/poetry_cache
 
-RUN --mount=type=cache,target=/tmp/poetry_cache poetry install --only main --no-root
+RUN --mount=type=cache,target=/tmp/poetry_cache poetry install --no-root
 
 FROM python:3.13 as runner
-WORKDIR /app/src
+WORKDIR /app
 COPY src /app/src/
 
 COPY --from=builder /app/.venv /app/.venv
-ENV PATH="/app/.env/bin:$PATH"
-
-ENTRYPOINT ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+ENV PATH="/app/.venv/bin:$PATH"
