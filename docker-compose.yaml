@@ -16,9 +16,9 @@ services:
     depends_on:
       - db
     volumes:
-      - .:/app
-      - /dev/log:/dev/log
-      - static_volume:/app/staticfiles
+      - ./src:/app/src
+      - ./tests:/app/tests
+    command: ["python", "src/manage.py", "runserver", "0.0.0.0:8000"]
 
 volumes:
   db-data:
