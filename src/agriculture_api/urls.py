@@ -11,3 +11,5 @@ router.register('properties', PropertyViewSet)
 router.register('harvests', HarvestViewSet)
 router.register('cultivated-crops', CultivatedCropViewSet)
 router.register('crops-in-properties', CropInPropertyViewSet)
+
+urlpatterns = router.urls
