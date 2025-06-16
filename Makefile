@@ -15,3 +15,6 @@ run_bash:
 
 test:
 	docker compose run --rm --remove-orphans web pytest
+
+createsuperuser:
+	docker compose run --rm web python src/manage.py createsuperuser
