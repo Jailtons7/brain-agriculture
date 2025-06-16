@@ -1,6 +1,7 @@
 from django.db import models
 
 from agriculture_api.validators import validate_document, validate_areas
+from agriculture_api.managers import PropertyManager
 
 
 class Farmer(models.Model):
@@ -19,6 +20,7 @@ class Property(models.Model):
     arable_area = models.DecimalField("Área Agricultável", max_digits=12, decimal_places=2)
     vegetation_area = models.DecimalField("Área de Vegetação", max_digits=12, decimal_places=2)
     farmer = models.ForeignKey("Farmer", on_delete=models.PROTECT, verbose_name="Fazendeiro")
+    objects = PropertyManager()
 
     def clean(self):
         super().clean()

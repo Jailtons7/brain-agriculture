@@ -38,3 +38,32 @@ class CropInPropertySerializer(serializers.ModelSerializer):
     class Meta:
         model = CultivatedCrop
         fields = '__all__'
+
+
+class AreaByStateSerializer(serializers.Serializer):
+    state = serializers.CharField(read_only=True)
+    total = serializers.DecimalField(max_digits=15, decimal_places=2, read_only=True)
+
+
+class PropertyByStateSerializer(serializers.Serializer):
+    total = serializers.IntegerField(read_only=True)
+    state = serializers.CharField(read_only=True)
+
+    class Meta:
+        fields = '__all__'
+
+
+class AreaByLandUsageSerializer(serializers.Serializer):
+    arable_area = serializers.DecimalField(read_only=True, max_digits=15, decimal_places=2)
+    vegetation_area = serializers.DecimalField(read_only=True, max_digits=15, decimal_places=2)
+
+
+class DashboardSerializer(serializers.Serializer):
+    total_farms = serializers.IntegerField(read_only=True)
+    total_area = serializers.FloatField(read_only=True)
+    area_by_state = AreaByStateSerializer(read_only=True, many=True)
+    properties_by_state = PropertyByStateSerializer(read_only=True, many=True)
+    total_areas_by_land_usage = AreaByLandUsageSerializer(read_only=True)
+
+    class Meta:
+        fields = '__all__'
