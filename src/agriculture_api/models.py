@@ -5,7 +5,7 @@ from agriculture_api.validators import validate_document, validate_areas
 
 class Farmer(models.Model):
     name = models.CharField("Nome", max_length=255)
-    document = models.CharField("CPF/CNPJ", max_length=14, validators=[validate_document])
+    document = models.CharField("CPF/CNPJ", max_length=14, validators=[validate_document], unique=True)
 
     def __str__(self):
         return self.name
@@ -29,7 +29,7 @@ class Property(models.Model):
 
 
 class Harvest(models.Model):
-    year = models.SmallIntegerField("Ano")
+    year = models.SmallIntegerField("Ano", unique=True)
 
     def __str__(self):
         return f"Safra {self.year}"
@@ -41,6 +41,13 @@ class CultivatedCrop(models.Model):
 
     def __str__(self):
         return f"{self.name} na {self.harvest}"
+
+    class Meta:
+        verbose_name = "Cultivated Crop"
+        verbose_name_plural = "Cultivated Crops"
+        constraints = [
+            models.UniqueConstraint(fields=["name", "harvest"], name="unique_cultivated_crop_per_harvest"),
+        ]
 
 
 class CropInProperty(models.Model):

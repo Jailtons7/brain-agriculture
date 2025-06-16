@@ -62,10 +62,20 @@ def test_invalid_areas(areas):
 
 @pytest.mark.parametrize("document", load_documents('valid_cnpjs.csv', 'valid_cpfs.csv'))
 def test_valid_documents(document):
+    try:
+        document = document[0]
+    except KeyError:
+        document = ''
+
     assert validate_document(document) == document
 
 
 @pytest.mark.parametrize("document", load_documents('invalid_cnpjs.csv', 'invalid_cpfs.csv'))
 def test_invalid_documents(document):
+    try:
+        document = document[0]
+    except IndexError:
+        document = ''
+
     with pytest.raises(ValidationError):
         validate_document(document)
