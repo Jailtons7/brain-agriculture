@@ -1,9 +1,11 @@
 from django.db import models
 
+from agriculture_api.validators import validate_document, validate_areas
+
 
 class Farmer(models.Model):
     name = models.CharField("Nome", max_length=255)
-    document = models.CharField("CPF/CNPJ", max_length=14)
+    document = models.CharField("CPF/CNPJ", max_length=14, validators=[validate_document])
 
     def __str__(self):
         return self.name
@@ -17,6 +19,10 @@ class Property(models.Model):
     arable_area = models.DecimalField("Área Agricultável", max_digits=12, decimal_places=2)
     vegetation_area = models.DecimalField("Área de Vegetação", max_digits=12, decimal_places=2)
     farmer = models.ForeignKey("Farmer", on_delete=models.PROTECT, verbose_name="Fazendeiro")
+
+    def clean(self):
+        super().clean()
+        validate_areas(self.arable_area, self.vegetation_area, self.total_area)
 
     def __str__(self):
         return f"Propriedade {self.name}"
