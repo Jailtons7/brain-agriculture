@@ -21,13 +21,14 @@ def load_fixture(filename):
 
 
 def load_documents(cpf_file, cnpj_file):
+    """ Load CPFs and CNPJ given their respective file names """
     cpfs = load_fixture(cpf_file)
     cnpjs = load_fixture(cnpj_file)
     return cpfs + cnpjs
 
 
 def load_cpf_cnpj(filename: str) -> List[str]:
-    """ Load data from a csv file given a filename in 'fixtures' folder. """
+    """ Load data from a csv file given a file name in 'fixtures' folder. """
     data = load_fixture(filename)
     return [row[0] for row in data]
 
