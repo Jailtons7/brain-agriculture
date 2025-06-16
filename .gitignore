@@ -75,7 +75,7 @@ ipython_config.py
 .python-version
 
 # Environments
-.env
+src/.env
 .venv
 env/
 venv/
