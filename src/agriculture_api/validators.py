@@ -1,7 +1,10 @@
 from django.core.exceptions import ValidationError
 
 
-ERROR_MESSAGE = "Invalid document. Please enter a valid CPF or CNPJ. Hint: only numbers are allowed."
+ERROR_MESSAGE = {
+    "document": "Invalid document. Please enter a valid CPF or CNPJ. "
+                "Important: only numbers are allowed."
+}
 
 
 def validate_cpf(cpf: str) -> str:
@@ -61,5 +64,6 @@ def validate_areas(arable_area: float, vegetation_area: float, total_area: float
     total_sub_areas = (arable_area or 0) + (vegetation_area or 0)
     if total_sub_areas > (total_area or 0):
         raise ValidationError({
-            "total_area": "A soma das áreas agricultável e de vegetação não pode exceder a área total da propriedade."
+            "total_area": "A soma das áreas agricultável e de vegetação não pode "
+                          "exceder a área total da propriedade."
         })
