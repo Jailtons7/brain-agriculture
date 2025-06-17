@@ -11,7 +11,7 @@ Brain Agriculture is an application to manage crops and harvests on rural proper
 ---
 
 ## Running
-First of all, copy the `.env.example` file content to a `.env` file.
+First of all, copy the `src/.env.example` file content to a `src/.env` file.
 Then build the project
 ```shell
   make build
@@ -43,4 +43,4 @@ This project has automated tests, to run them execute
   make test
 ```
 
-You can also test it manually in the Django Administration Site `/admin` or using the docs `/api/docs`.
+You can also test it manually in the Django Administration Site `/admin` or using the docs `/redoc`.
