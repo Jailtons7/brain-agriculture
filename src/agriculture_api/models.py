@@ -1,7 +1,7 @@
 from django.db import models
 
 from agriculture_api.validators import validate_document, validate_areas
-from agriculture_api.managers import PropertyManager
+from agriculture_api.managers import PropertyManager, CultivatedCropManager
 
 
 class Farmer(models.Model):
@@ -20,6 +20,7 @@ class Property(models.Model):
     arable_area = models.DecimalField("Área Agricultável", max_digits=12, decimal_places=2)
     vegetation_area = models.DecimalField("Área de Vegetação", max_digits=12, decimal_places=2)
     farmer = models.ForeignKey("Farmer", on_delete=models.PROTECT, verbose_name="Fazendeiro")
+
     objects = PropertyManager()
 
     def clean(self):
@@ -40,6 +41,8 @@ class Harvest(models.Model):
 class CultivatedCrop(models.Model):
     name = models.CharField("Nome", max_length=255)
     harvest = models.ForeignKey("Harvest", on_delete=models.CASCADE, verbose_name="Safra")
+
+    objects = CultivatedCropManager()
 
     def __str__(self):
         return f"{self.name} na {self.harvest}"

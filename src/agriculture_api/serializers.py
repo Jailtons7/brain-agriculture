@@ -40,11 +40,6 @@ class CropInPropertySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class AreaByStateSerializer(serializers.Serializer):
-    state = serializers.CharField(read_only=True)
-    total = serializers.DecimalField(max_digits=15, decimal_places=2, read_only=True)
-
-
 class PropertyByStateSerializer(serializers.Serializer):
     total = serializers.IntegerField(read_only=True)
     state = serializers.CharField(read_only=True)
@@ -58,12 +53,24 @@ class AreaByLandUsageSerializer(serializers.Serializer):
     vegetation_area = serializers.DecimalField(read_only=True, max_digits=15, decimal_places=2)
 
 
+class AreaByStateSerializer(AreaByLandUsageSerializer):
+    state = serializers.CharField(read_only=True)
+    total = serializers.DecimalField(max_digits=15, decimal_places=2, read_only=True)
+
+
+class TopCultivatedCropsSerializer(serializers.Serializer):
+    name = serializers.CharField(read_only=True)
+    total_farms = serializers.IntegerField(read_only=True)
+
+
 class DashboardSerializer(serializers.Serializer):
     total_farms = serializers.IntegerField(read_only=True)
     total_area = serializers.FloatField(read_only=True)
-    area_by_state = AreaByStateSerializer(read_only=True, many=True)
+    areas_by_state = AreaByStateSerializer(read_only=True, many=True)
     properties_by_state = PropertyByStateSerializer(read_only=True, many=True)
     total_areas_by_land_usage = AreaByLandUsageSerializer(read_only=True)
+    top_cultivated_crops = TopCultivatedCropsSerializer(read_only=True, many=True)
 
     class Meta:
         fields = '__all__'
+
