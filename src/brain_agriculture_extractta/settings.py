@@ -56,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'agriculture_api.middlewares.RedirectMiddleware',
 ]
 
 ROOT_URLCONF = 'brain_agriculture_extractta.urls'
