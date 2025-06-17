@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'rest_framework',
     'agriculture_api',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
