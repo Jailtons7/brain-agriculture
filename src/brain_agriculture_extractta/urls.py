@@ -22,9 +22,9 @@ from drf_yasg import openapi
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="Your API Title",
+        title="Brain Agriculture API",
         default_version='v1',
-        description="Your API Description",
+        description="Brain Agriculture is an API where you can manage farmers, crops and harvests on rural properties",
     ),
     public=True,
 )
