@@ -16,20 +16,30 @@ Exemplo de resposta:
   "total_farms": 10,
   "total_area": 1230.5,
   "areas_by_state": [
-    {"state": "Paraná", "total_area": 600.0},
-    {"state": "Bahia", "total_area": 630.5}
+    {
+      "arable_area": "50.26",
+      "vegetation_area": "200.00",
+      "state": "Minas Gerais",
+      "total": "0.00"
+    },
+    {
+      "arable_area": "100.00",
+      "vegetation_area": "120.00",
+      "state": "Bahia",
+      "total": "220.00"
+    }
   ],
   "properties_by_state": [
-    {"state": "Paraná", "properties": 4},
-    {"state": "Bahia", "properties": 6}
+    {"state": "Paraná", "total": 4},
+    {"state": "Bahia", "total": 6}
   ],
   "total_areas_by_land_usage": {
-    "total_arable_area": 800.0,
-    "total_vegetation_area": 430.5
+    "arable_area": 800.0,
+    "vegetation_area": 430.5
   },
   "top_cultivated_crops": [
-    {"crop_name": "Soja", "properties": 5},
-    {"crop_name": "Milho", "properties": 3}
+    {"name": "Trigo", "total_farms": 5},
+    {"name": "Arroz", "total_farms": 2}
   ]
 }
 """
