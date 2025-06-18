@@ -4,8 +4,8 @@ from django.core.exceptions import ValidationError
 DOCUMENT_ERROR_MESSAGE = "Invalid document. Please enter a valid CPF or CNPJ. " \
                          "Important: only numbers are allowed."
 AREAS_ERROR_MESSAGE = {
-    "total_area": "A soma das áreas agricultável e de vegetação não pode "
-                  "exceder a área total da propriedade."
+    "total_area": "The sum of the arable and vegetation areas cannot exceed the "
+                  "total area of the property."
 }
 
 
