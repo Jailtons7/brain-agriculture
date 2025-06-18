@@ -1,6 +1,9 @@
 from rest_framework import serializers
 
-from agriculture_api.models import Farmer, Property, Harvest, CultivatedCrop
+from agriculture_api.models import (
+    Farmer, Property, Harvest, CultivatedCrop, CropInProperty
+)
+from agriculture_api.validators import AREAS_ERROR_MESSAGE
 
 
 class FarmerSerializer(serializers.ModelSerializer):
@@ -10,11 +13,21 @@ class FarmerSerializer(serializers.ModelSerializer):
 
 
 class PropertySerializer(serializers.ModelSerializer):
-    farmer = FarmerSerializer(read_only=True)
+    farmer = serializers.PrimaryKeyRelatedField(queryset=Farmer.objects.all())
 
     class Meta:
         model = Property
         fields = '__all__'
+
+    def validate(self, attrs):
+        arable_area = attrs.get('arable_area', 0)
+        vegetation_area = attrs.get('vegetation_area', 0)
+        total_area = attrs.get('total_area', 0)
+
+        total_sub_areas = (arable_area or 0) + (vegetation_area or 0)
+        if total_sub_areas > (total_area or 0):
+            raise serializers.ValidationError(AREAS_ERROR_MESSAGE)
+        return attrs
 
 
 class HarvestSerializer(serializers.ModelSerializer):
@@ -24,7 +37,7 @@ class HarvestSerializer(serializers.ModelSerializer):
 
 
 class CultivatedCropSerializer(serializers.ModelSerializer):
-    harvest = HarvestSerializer(read_only=True)
+    harvest = serializers.PrimaryKeyRelatedField(queryset=Harvest.objects.all())
 
     class Meta:
         model = CultivatedCrop
@@ -32,11 +45,11 @@ class CultivatedCropSerializer(serializers.ModelSerializer):
 
 
 class CropInPropertySerializer(serializers.ModelSerializer):
-    cultivated_crop = CultivatedCropSerializer(read_only=True)
-    property = PropertySerializer(read_only=True)
+    cultivated_crop = serializers.PrimaryKeyRelatedField(queryset=CultivatedCrop.objects.all())
+    property = serializers.PrimaryKeyRelatedField(queryset=Property.objects.all())
 
     class Meta:
-        model = CultivatedCrop
+        model = CropInProperty
         fields = '__all__'
 
 
@@ -73,4 +86,3 @@ class DashboardSerializer(serializers.Serializer):
 
     class Meta:
         fields = '__all__'
-
