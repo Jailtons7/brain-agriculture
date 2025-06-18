@@ -1,8 +1,10 @@
 import pytest
 
+from rest_framework import status
 from rest_framework.test import APIClient
 
 from agriculture_api.models import Farmer
+from agriculture_api.validators import DOCUMENT_ERROR_MESSAGE
 
 
 @pytest.fixture
@@ -20,6 +22,18 @@ def test_create_farmer(api_client):
     response = api_client.post('/api/farmers/', data, format='json')
     assert response.status_code == 201
     assert Farmer.objects.filter(document=document).exists()
+
+
+@pytest.mark.django_db
+def test_create_farmer_invalid_document(api_client):
+    payload = {
+        "name": "Fulano",
+        "document": "123",  # invalid document
+    }
+    response = api_client.post("/api/farmers/", payload, format="json")
+    assert response.status_code == status.HTTP_400_BAD_REQUEST
+    assert 'document' in response.data
+    assert response.data['document'][0] == DOCUMENT_ERROR_MESSAGE
 
 
 @pytest.mark.django_db
