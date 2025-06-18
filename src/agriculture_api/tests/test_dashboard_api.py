@@ -52,7 +52,7 @@ def dashboard_data():
 
 @pytest.mark.django_db
 def test_dashboard_api(api_client, dashboard_data):
-    response = api_client.get('/api/dashboard')
+    response = api_client.get('/api/dashboard/')
     data = response.json()
 
     assert response.status_code == 200
@@ -88,7 +88,7 @@ def test_add_property_dashboard(api_client, dashboard_data):
         farmer=farmer3
     )
 
-    response = api_client.get('/api/dashboard')
+    response = api_client.get('/api/dashboard/')
     data = response.json()
 
     assert response.status_code == 200

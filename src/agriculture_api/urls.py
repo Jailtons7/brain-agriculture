@@ -14,7 +14,7 @@ router.register('cultivated-crops', CultivatedCropViewSet)
 router.register('crops-in-properties', CropInPropertyViewSet)
 
 urlpatterns = [
-    path('dashboard', DashboardView.as_view()),
+    path('dashboard/', DashboardView.as_view()),
 ]
 
 urlpatterns += router.urls
