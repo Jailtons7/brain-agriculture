@@ -27,12 +27,22 @@ class Property(models.Model):
         super().clean()
         validate_areas(self.arable_area, self.vegetation_area, self.total_area)
 
+    def save(
+            self,
+            force_insert=False,
+            force_update=False,
+            using=None,
+            update_fields=None,
+    ):
+        self.full_clean()
+        super().save(force_insert=False, force_update=False, using=None, update_fields=None)
+
     def __str__(self):
         return f"Propriedade {self.name}"
 
 
 class Harvest(models.Model):
-    year = models.SmallIntegerField("Ano", unique=True)
+    year = models.PositiveSmallIntegerField("Ano", unique=True)
 
     def __str__(self):
         return f"Safra {self.year}"
